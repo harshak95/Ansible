@@ -1,0 +1,19 @@
+---
+- name: SPC
+  hosts: appserver
+  become: yes
+  tasks
+   - name: update package and install java
+     apt:
+       name: openjdk-11-jdk
+       update_cache: yes
+       state: present
+   - name: Create a directory
+     ansible.builtin.file:
+      path: /usr/share/springpetclinic
+      state: directory
+   - name: Download file
+     get_url:
+      url: https://referenceapplicationskhaja.s3-us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar
+      dest: /usr/share/springpetclinic/spring-petclinic-2.4.2.jar
+    

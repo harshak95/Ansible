@@ -1,0 +1,10 @@
+[Unit]
+Description=Spring pet clinic
+After=syslog.target
+
+[Service]
+User=springbootuser
+ExecStart=/usr/bin/java -jar/usr/share/springpetclinic/spring-petclinic-2.4.2.jar
+
+[Install] 
+WantedBy=multi-user.target
