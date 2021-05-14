@@ -33,5 +33,5 @@
        src: springpetclinic.service
     - name: Enable and start a service
       systemd:
-        name: springpetclinic.service
-        state: started 
+       name: springpetclinic.service
+       state: started 
