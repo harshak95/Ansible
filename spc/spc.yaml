@@ -9,11 +9,29 @@
         update_cache: yes
         state: present
     - name: Create a directory
-      ansible.builtin.file:
+      file:
        path: /usr/share/springpetclinic
        state: directory
     - name: Download file
       get_url:
        url: https://referenceapplicationskhaja.s3-us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar
        dest: /usr/share/springpetclinic/spring-petclinic-2.4.2.jar
-    
+    - name: Add the user springbootuser
+      file:
+       name: springbootuser
+       password: springbootuser
+       state: present
+    - name: Change file ownership
+      file:
+       path: /usr/share/springpetclinic/spring-petclinic-2.4.2.jar
+       owner: springbootuser
+       mode:'500'
+       state: file
+    - name: Copy file from local machine
+      copy:
+       dest: /etc/systemd/system/springpetclinic.service
+       src: springpetclinic.service
+    - name: Enable and start a service
+      systemd:
+        name: springpetclinic.service
+        state: started 
